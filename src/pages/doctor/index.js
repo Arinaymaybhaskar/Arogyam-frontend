@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import RequestBox from "@/components/RequestBox";
 import React, { useState, useEffect } from "react";
-import { useRecoilState } from "recoil";
+
 // import { getSession, useSession } from "next-auth/react";
 import styled from "@emotion/styled";
 import Link from "next/link";
