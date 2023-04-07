@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import React from "react";
 import { FcHighPriority, FcShare, FcPlus, FcInspection } from "react-icons/fc";
 import { BsClipboard2CheckFill } from "react-icons/bs";

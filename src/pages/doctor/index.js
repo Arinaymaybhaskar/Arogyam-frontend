@@ -1,25 +1,18 @@
 import Navbar from "@/components/Navbar";
 import RequestBox from "@/components/RequestBox";
 import React, { useState, useEffect } from "react";
-import Modal from "@/components/Modal";
-// import { AnimatePresence } from "framer-motion";
 import { useRecoilState } from "recoil";
 // import { getSession, useSession } from "next-auth/react";
-// import { modalState, modalTypeState } from "../../../atoms/modalAtom";
 import styled from "@emotion/styled";
 import Link from "next/link";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import TrendingBox from "@/components/TrendingBox";
-import DoctorFeed from "@/components/DoctorFeed";
-// import { connectToDatabase } from "@/dbconnect";
 
 
 
-const Home = ({ posts }) => {
-  // const { data: session } = useSession()
-  // const [modalOpen, setModalOpen] = useRecoilState(modalState);
-  // const [modalType, setModalType] = useRecoilState(modalTypeState);
 
+
+const Home = ({  }) => {
   return (
     <>
       <Navbar />
@@ -49,17 +42,11 @@ const Home = ({ posts }) => {
               ">Manage Consultations</button></div>
           </div>
           <div className="w-full h-full flex flex-col">
-            <DoctorFeed posts={posts} />
-            {/* <AnimatePresence>
-                  {modalOpen && (
-                    <Modal handleClose={() => setModalOpen(false)} type={modalType} />
-                  )}
-          </AnimatePresence> */}
             <RequestBox />
             <RequestBox />
             <RequestBox />
           </div>
-          <TrendingBox />
+          <TrendingBox key={1} />
         </div>
       </div>
     </>

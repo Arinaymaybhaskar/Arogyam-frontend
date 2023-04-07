@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import React from "react";
 
 const Array = [
@@ -22,8 +22,8 @@ const TrendingBox = () => {
         {Array.map((name, index) => {
           return (
             <>
-              <div className="w-full h-full flex items-center pl-4 shadow-xl border-teal-950 border-t-2 text-white text-2xl tracking-tight leading-tight font-semibold">
-                <span className="">{name}</span>
+              <div key = {index} className="w-full h-full flex items-center pl-4 shadow-xl border-teal-950 border-t-2 text-white text-2xl tracking-tight leading-tight font-semibold">
+                <span key = {index} className="">{name}</span>
               </div>
             </>
           );

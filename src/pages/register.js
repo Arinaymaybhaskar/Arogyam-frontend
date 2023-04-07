@@ -1,11 +1,10 @@
 import AuthLayout from "@/layouts/AuthLayout";
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   // const router = useRouter();
@@ -89,15 +88,15 @@ const Register = () => {
               </h1>
               <form className="space-y-4 md:space-y-6" action="#">
                 <div>
-                  <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                   <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
                 </div>
                 <div>
-                  <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                  <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                   <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                 </div>
                 <div>
-                  <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
+                  <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
                   <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                 </div>
                 <div className="flex items-center justify-between">
@@ -106,7 +105,7 @@ const Register = () => {
                       <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-black rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="" />
                     </div>
                     <div className="ml-3 text-sm">
-                      <label for="remember" className=" text-gray-500 dark:text-gray-400">Sign in as a <span className="text-blue-400">doctor</span>.</label>
+                      <label htmlFor="remember" className=" text-gray-500 dark:text-gray-400">Sign in as a <span className="text-blue-400">doctor</span>.</label>
                     </div>
                   </div>
                   <a href="#" className="text-sm font-medium text-red-500 hover:underline dark:text-primary-500">Forgot password?</a>
@@ -123,6 +122,4 @@ const Register = () => {
     </>
   );
 };
-
-
 export default Register;

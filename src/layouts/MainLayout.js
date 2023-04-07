@@ -7,7 +7,8 @@ const MainLayout = ({ children }) => {
     <>
       <div className="w-screen h-[100vh] overflow-x-hidden scrollbar-none flex flex-col">
         <Navbar />
-        <div className="h-full overflow-y-scroll scrollbar-none">{children}</div>
+        {/* <div className="h-full overflow-y-scroll scrollbar-none">{children}</div> */}
+        {children}
       </div>
     </>
   );

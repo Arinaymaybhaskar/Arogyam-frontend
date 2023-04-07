@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import React from "react";
 import { MdDelete } from "react-icons/md";
 
 const CurrentPost = () => {
   return (
     <>
-      <div className="flex content-center items-center flex-col ml-20 bg-neutral-900 rounded-xl shadow-xl text-white w-[70rem] h-[70rem]">
+      <div className="flex content-center items-center flex-col ml-20 bg-neutral-900 rounded-xl shadow-xl text-white w-[50rem] h-[70rem]">
         <div className="flex content-center items-center w-full p-2">
           <div className="w-full flex flex-row p-4 content-center items-center">
             <img
@@ -21,21 +21,7 @@ const CurrentPost = () => {
         </div>
         <div className="flex flex-col gap-4 w-full p-8 pt-2">
           <p className="text-lg font-medium">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi
-            quidem consectetur magni soluta eveniet deserunt possimus aliquam
-            molestias sapiente alias corporis, quis nesciunt ipsa quisquam
-            totam? Est natus inventore vel. Lorem ipsum, dolor sit amet
-            consectetur adipisicing elit. Quasi quidem consectetur magni soluta
-            eveniet deserunt possimus aliquam molestias sapiente alias corporis,
-            quis nesciunt ipsa quisquam totam? Est natus inventore vel. Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Quasi quidem
-            consectetur magni soluta eveniet deserunt possimus aliquam molestias
-            sapiente alias corporis, quis nesciunt ipsa quisquam totam? Est
-            natus inventore vel. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Quasi quidem consectetur magni soluta eveniet
-            deserunt possimus aliquam molestias sapiente alias corporis, quis
-            nesciunt ipsa quisquam totam? Est natus inventore vel. Lorem ipsum,
-            dolor sit amet consectetur adipisicing elit. Quasi quidem
+             Quasi quidem
             consectetur magni soluta eveniet deserunt possimus aliquam molestias
             sapiente alias corporis, quis nesciunt ipsa quisquam totam? Est
             natus inventore vel. Lorem ipsum, dolor sit amet consectetur
