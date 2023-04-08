@@ -3,8 +3,56 @@ import styled from "@emotion/styled";
 import React from "react";
 import { BsClipboard2CheckFill } from "react-icons/bs";
 import { FcHighPriority, FcShare, FcPlus, FcInspection } from "react-icons/fc";
+import { getSession } from "next-auth/react";
 
 const Array = ["Ankur", "Anime", "Anuj", "Ankur", "Anime", "Anuj", "Ankur"];
+
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  //current user
+  // const result = await axios.post("http://localhost:3000/api/patient", {
+  //   email: session.user.email,
+  // });
+  // const user = result.data.data;
+
+  // if (user.isDoctor) {
+  //   return {
+  //     redirect: {
+  //       destination: "/doctor",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+
+  // //all posts by current user
+  // const response = await axios.get(
+  //   `http://localhost:3000/api/patient/post/${user._id}`
+  // );
+  // const posts = response.data.data;
+
+  // let consultations = [];
+  // //all consultation offers on current post
+  // if (posts[0]) {
+  //   const res = await axios.get(
+  //     `http://localhost:3000/api/doctor/consultation/topatient/${posts[0]._id}`
+  //   );
+  //   consultations = res.data.data;
+  // }
+
+  return {
+    props: { session },
+  };
+}
 
 const selected = () => {
   return (

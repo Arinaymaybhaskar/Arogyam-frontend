@@ -17,13 +17,21 @@ const Array = [
 const TrendingBox = () => {
   return (
     <>
-      <div className="w-1/3 flex flex-col p-4 gap-2 h-full shadow-xl bg-neutral-900 rounded-xl">
-        <div className="w-full h-full flex content-center items-center shadow-xl p-4 rounded-md mb-3 font-bold leading-tight tracking-tight bg-teal-950 text-3xl text-teal-600" >Trending Specialist</div>
+      <div className="w-96 flex flex-col p-4 gap-4 shadow-xl bg-stone-100">
+        <div className="w-full flex content-center items-center p-2 rounded-md text-3xl text-teal-600">
+          Trending Specialist
+        </div>
         {Array.map((name, index) => {
           return (
             <>
-              <div key = {index} className="w-full h-full flex items-center pl-4 shadow-xl border-teal-950 border-t-2 text-white text-2xl tracking-tight leading-tight font-semibold">
-                <span key = {index} className="">{name}</span>
+              <div
+                key={index}
+                className="w-full flex items-center border-teal-950 gap-4 text-xl"
+              >
+                <span>{index + 1}</span>
+                <span key={index} className="">
+                  {name}
+                </span>
               </div>
             </>
           );
@@ -32,6 +40,5 @@ const TrendingBox = () => {
     </>
   );
 };
-
 
 export default TrendingBox;
