@@ -86,39 +86,37 @@ const Profile = ({ user }) => {
 
   return (
     <MainLayout>
-      <div className="w-full h-full bg-stone-300 flex flex-row items-start p-8 gap-8 justify-center font-sans overflow-scroll overflow-x-hidden">
-        <div className="w-1/5 flex flex-col h-fit">
-          <div className=" bg-stone-100 rounded-t-md text-center p-3">
-            <h1 className="font-bold text-2xl">{user.fullname}</h1>
+      <div className=" h-full bg-lightMode-background dark:bg-darkMode-background flex flex-wrap flex-row  items-start p-5 justify-center font-sans text-lightMode-txt dark:text-darkMode-txt overflow-scroll">
+        <div className="flex flex-col mt-8 w-[20rem] m-4">
+          <div className=" p-5 mb-0 bg-lightMode-componentHead pl-5  rounded-t-md pb-1 w-auto  dark:bg-darkMode-componentHead">
+            <h1 className="font-bold text-2xl">Your <span className="text-cyan-800 dark:text-cyan-600">Profile</span></h1>
           </div>
-          <div className="rounded-md border-slate-950 flex flex-col bg-stone-200 items-center justify-center p-5">
-            <div className="relative">
+          <div className="mt-0  rounded-md border-slate-950 flex flex-col bg-lightMode-component dark:bg-darkMode-component items-center justify-center text-lightMode-txt dark:text-darkMode-txt w-auto rounded-t-none p-5">
+            <div className="flex justify-center mb-3 p-3 pb-0">
               <img
-                className="rounded-full w-[10rem] h-[10rem] border-2 border-black"
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                className="rounded-full h-auto border-[1px] border-slate-600"
+                src="https://pbs.twimg.com/profile_images/1316055876466290690/27XA54-D.jpg"
                 alt="Profile photo"
               />
             </div>
 
-            <div className="p-5">
-              <div className="font-bold ">@{user.fullname}</div>
-              <div className="font-bold ">@{user.fullname}</div>
-              <div className="font-bold ">@{user.fullname}</div>
-            </div>
+              <div className="font-bold m-4 mt-0 text-2xl">{user.fullname}</div>
 
-            <div className="flex relative bg-cyan-600 px-4 p-2 text-white font-semibold">
+            
+
+            <div className="text-sm p-4 py-2 w-auto font-medium text-white bg-lightMode-btn dark:bg-darkMode-btn rounded-md ">
               <input
                 id="photo"
                 type="file"
                 className="absolute left-0 w-full h-full opacity-0"
               />
-              Edit Pic
+              Upload New Photo
             </div>
           </div>
         </div>
 
-        <div className="w-3/5 rounded-md bg-stone-200">
-          <div className=" bg-stone-100 rounded-t-md text-left p-3 pl-8">
+        <div className="m-8 rounded-md bg-lightMode-component dark:bg-darkMode-component dark:text-darkMode-txt text-lightMode-txt w-1/3 min-w-[20rem] h-4/5 overflow-y-scroll scrollbar-hide ">
+          <div className="p-5 bg-lightMode-componentHead dark:bg-darkMode-componentHead rounded-t-md pb-1">
             <h1 className="font-bold text-2xl">Edit Profile</h1>
           </div>
           <form className="w-full p-5" action="" onSubmit={formik.handleSubmit}>
@@ -128,7 +126,7 @@ const Profile = ({ user }) => {
                   First Name
                 </label>
                 <input
-                  className="appearance-none block w-full bg-stone-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-neutral-700"
+                  className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                   type="text"
                   {...formik.getFieldProps("fullname")}
                 />
@@ -140,7 +138,7 @@ const Profile = ({ user }) => {
                   Date of birth
                 </label>
                 <input
-                  className="appearance-none block w-full bg-stone-300 rounded py-3 px-4 leading-tight placeholder:text-neutral-300 focus:outline-none focus:bg-neutral-700 focus:border-gray-500"
+                  className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                   type="date"
                   {...formik.getFieldProps("dob")}
                 />
@@ -152,7 +150,7 @@ const Profile = ({ user }) => {
                   Contact Number
                 </label>
                 <input
-                  className="appearance-none block w-full bg-stone-300 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-700 focus:border-gray-500"
+                  className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                   type="text"
                   placeholder="99xxxxxxxx"
                   {...formik.getFieldProps("contact")}
@@ -165,11 +163,14 @@ const Profile = ({ user }) => {
                   Password
                 </label>
                 <input
-                  className="appearance-none block w-full bg-stone-300 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-700 focus:border-gray-500"
+                  className="appearance-none block w-full bg-neutral-200 mb-3 border-red-600 border-[1px] dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                   type="password"
                   placeholder="**************"
                   {...formik.getFieldProps("password")}
                 />
+                <p className="text-red-500 text-xs italic">
+                  Please fill out this field.
+                </p>
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -182,7 +183,8 @@ const Profile = ({ user }) => {
                 </label>
                 <div className="relative">
                   <select
-                    className="block appearance-none w-full bg-stone-300 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500"
+                    className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
+                    id="grid-state"
                     {...formik.getFieldProps("gender")}
                   >
                     <option>Rather not say</option>
@@ -198,12 +200,14 @@ const Profile = ({ user }) => {
                 </div>
               </div>
             </div>
-            <button
-              type="submit"
-              className="text-md p-4 w-full font-medium bg-cyan-700 rounded-xl text-white"
-            >
-              Update Profile
-            </button>
+            <div className="flex flex-row mx-7 justify-center">
+              <button
+                type="submit"
+                className="text-sm p-2 w-full font-medium bg-lightMode-btn dark:bg-darkMode-btn rounded-md m-5 text-white"
+              >
+                Update Profile
+              </button>
+            </div>
           </form>
         </div>
       </div>

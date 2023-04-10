@@ -74,9 +74,10 @@ const BasicInfo = () => {
                         Full Name
                     </label>
                     <input
-                        className="appearance-none block w-full bg-neutral-200 rounded py-3 px-4 leading-tight placeholder:text-neutral-300 focus:outline-none focus:bg-neutral-700 focus:border-gray-500 focus:text-white"
+                        className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                         id="grid-first-name"
                         type="text"
+                        placeholder='Full name'
                         {...formik.getFieldProps("fullname")}
                     />
                     
@@ -91,7 +92,7 @@ const BasicInfo = () => {
                         Date of birth
                     </label>
                     <input
-                        className="appearance-none block w-full bg-neutral-200 rounded py-3 px-4 leading-tight placeholder:text-neutral-300 focus:outline-none focus:bg-neutral-700 focus:border-gray-500 focus:text-white"
+                        className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                         id="date-of-birth"
                         type="date"
                         {...formik.getFieldProps("dob")}
@@ -108,7 +109,7 @@ const BasicInfo = () => {
                         Contact Number
                     </label>
                     <input
-                        className="appearance-none block w-full bg-neutral-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-700 focus:border-gray-500 focus:text-white"
+                        className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                         id="grid-qualifications"
                         type="number"
                         placeholder="XXXXXXXXXX"
@@ -116,7 +117,7 @@ const BasicInfo = () => {
                     />
                 </div>
             </div>
-            <div className="flex flex-wrap -mx-3 mb-9">
+            <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3 mb-6 md:mb-0">
                     <label
                         className="block uppercase tracking-wide text-xs font-semibold mb-2"
@@ -126,7 +127,7 @@ const BasicInfo = () => {
                     </label>
                     <div className="relative">
                         <select
-                            className="block appearance-none w-full bg-neutral-200 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500 focus:text-white"
+                            className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                             id="grid-state"
                             {...formik.getFieldProps("gender")}
                         >
@@ -152,7 +153,7 @@ const BasicInfo = () => {
                         Password
                     </label>
                     <input
-                        className="appearance-none block w-full bg-neutral-200 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-neutral-700 focus:text-white"
+                        className="appearance-none block w-full bg-neutral-200 mb-3 border-red-600 border-[1px] dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                         id="grid-password"
                         type="password"
                         placeholder="******************"
@@ -168,7 +169,7 @@ const BasicInfo = () => {
             <div className="flex flex-row mx-7 justify-center">
                 <button
                     type="submit"
-                    className="text-sm p-2 w-1/2 font-medium bg-lightMode-btn rounded-md m-5 text-white"
+                    className="text-sm p-2 w-full font-medium bg-lightMode-btn dark:bg-darkMode-btn rounded-md m-5 text-white"
                 >
                     Update Profile
                 </button>

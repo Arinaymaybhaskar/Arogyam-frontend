@@ -14,11 +14,11 @@ module.exports = {
           componentHead: '#f0f0f0'
         },
         darkMode: {
-          background: '#2e2e2e',
+          background: '#000000',
           txt: '#f7f7f7',
-          component: '#0f0f0f',
-          btn: '#033642',
-          componentHead: '#b5b4b3'
+          component: '#1e1e1e',
+          btn: '#033e4d',
+          componentHead: '#111111'
         }
       }
     },

@@ -58,14 +58,10 @@ const MoreInfo = () => {
     
       const formik = useFormik({
         initialValues: {
-          fullname: "user.fullname",
-          dob: "user.dob",
-          // qualification:"",
-          contact: "user.contact",
-          password: "***************",
-          gender: "user.gender",
-          // linkdin:"",
-          // twitter:"",
+          qualification:"",
+          linkdin:"",
+          twitter:"",
+          experience:""
         },
         onSubmit,
       });
@@ -80,7 +76,7 @@ const MoreInfo = () => {
                         Qualifications
                     </label>
                     <input
-                        className="appearance-none block w-full bg-neutral-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-700 focus:border-gray-500"
+                        className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                         id="grid-qualifications"
                         type="text"
                         placeholder="College name, Degree..."
@@ -103,7 +99,7 @@ const MoreInfo = () => {
                             <AiFillLinkedin />
                         </label>
                         <input
-                            className="appearance-none block w-full bg-neutral-200 py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-700 focus:border-gray-500"
+                            className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                             type="link"
                         // {...formik.getFieldProps("linkdin")}
                         />
@@ -114,8 +110,7 @@ const MoreInfo = () => {
                             <AiOutlineTwitter />
                         </label>
                         <input
-                            className="appearance-none block w-full bg-neutral-200  py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-700 focus:border-gray-500"
-                            id="grid-password"
+                            className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                             type="link"
                         // {...formik.getFieldProps("twitter")}
                         />
@@ -131,11 +126,11 @@ const MoreInfo = () => {
                         Experience
                     </label>
                     <input
-                        className="appearance-none block w-full bg-neutral-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-neutral-700 focus:border-gray-500"
+                        className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                         id="grid-password"
-                        type="password"
-                        placeholder="******************"
-                        {...formik.getFieldProps("password")}
+                        type="text"
+                        placeholder="Experience"
+                        {...formik.getFieldProps("experience")}
                     />
                     
                 </div>
@@ -143,7 +138,7 @@ const MoreInfo = () => {
             <div className="flex flex-row  mx-7 justify-center">
                 <button
                     type="submit"
-                    className="text-sm p-2 w-1/2 font-medium bg-lightMode-btn rounded-md m-5 text-white"
+                    className="text-sm p-2 w-full font-medium bg-lightMode-btn dark:bg-darkMode-btn rounded-md m-5 text-white"
                 >
                     Update Profile
                 </button>
