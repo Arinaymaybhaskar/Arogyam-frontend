@@ -116,7 +116,7 @@ const Home = ({ user, posts, consultations }) => {
                 </div>
               </>
             ) : (
-              <div className="w-full flex items-center flex-col text-lightMode-txt dark:text-darkMode-txt bg-lightMode-component dark:bg-darkMode-component shadow-xl h-fit p-4 gap-4">
+              <div className="w-full flex items-center flex-col text-lightMode-txt dark:text-darkMode-txt bg-lightMode-component dark:bg-darkMode-component shadow-md p-4 gap-4 rounded-lg">
                 <div className="flex content-center items-center w-full">
                   <div className="w-full flex flex-row content-center items-center">
                     <img
@@ -126,28 +126,7 @@ const Home = ({ user, posts, consultations }) => {
                     />
                     <span className="ml-4 text-2xl font-bold">Ankur Yadav</span>
                   </div>
-                </div>
-                <form
-                  className="w-full flex flex-col gap-2"
-                  onSubmit={formik.handleSubmit}
-                >
-                  <input
-                    rows="8"
-                    placeholder="Please, describe your health"
-                    className="bg-transparent focus:outline-none border border-black rounded-md p-4"
-                    {...formik.getFieldProps("description")}
-                  />
-
-                  <div className="w-full flex justify-between items-center px-2">
-                    <input
-                      type="file"
-                      className="border border-black p-1 rounded-md w-72"
-                      onChange={(e) => {
-                        setImage(e.target.files[0]);
-                      }}
-                    />
-
-                    <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-2 w-[16vw]">
                       <label
                         className="block uppercase tracking-wide text-xs font-semibold mb-2"
                         htmlFor="grid-state"
@@ -164,9 +143,29 @@ const Home = ({ user, posts, consultations }) => {
                         <option>High</option>
                       </select>
                     </span>
+                </div>
+                <form
+                  className="w-full flex flex-col gap-2 text-sm"
+                  onSubmit={formik.handleSubmit}
+                >
+                  <input
+                    rows="8"
+                    placeholder="Please, describe your health"
+                    className="bg-transparent focus:outline-none border border-black rounded-md p-4"
+                    {...formik.getFieldProps("description")}
+                  />
+
+                  <div className="w-full flex justify-between items-center px-2">
+                    <input
+                      type="file"
+                      className="border-0 border-black p-1 w-72"
+                      onChange={(e) => {
+                        setImage(e.target.files[0]);
+                      }}
+                    />
 
                     <button
-                      className="font-medium bg-cyan-700 hover:bg-cyan-600 disabled:text-black/40 disabled:bg-white/75 disabled:cursor-not-allowed text-white rounded-md px-12 p-2"
+                      className="font-medium bg-lightMode-btn dark:bg-darkMode-btn hover:bg-cyan-600 disabled:text-black/40 disabled:bg-white/75 disabled:cursor-not-allowed text-white rounded-md px-12 p-2"
                       type="submit"
                       // disabled={!input.trim() && !photoUrl.trim()}
                     >

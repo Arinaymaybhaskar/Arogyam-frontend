@@ -46,3 +46,13 @@ input::-webkit-outer-spin-button,
         input[type=number] {
             -moz-appearance: textfield;
         }
+
+        input::file-selector-button {
+          font-weight: bold;
+          color: white;
+          padding: 0.5em;
+          background: #033e4d;
+          border: thin solid #033e4d;
+          border-radius: 3px;
+      }
+      
