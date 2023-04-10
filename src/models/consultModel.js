@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const ConsultationSchema = new Schema(
   {
-    did: {
+    doctorid: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },

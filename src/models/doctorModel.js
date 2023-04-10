@@ -8,16 +8,14 @@ const DoctorSchema = new Schema({
   experience: {
     type: String,
   },
-  education: {
-    type: String,
-  },
   qualification: {
     type: String,
+    required: true,
   },
-  twitterUrl: {
+  twitter: {
     type: String,
   },
-  linkedinUrl: {
+  linkedin: {
     type: String,
   },
 });

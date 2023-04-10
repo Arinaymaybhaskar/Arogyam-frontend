@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import RequestBox from "@/components/RequestBox";
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 import { getSession, useSession } from "next-auth/react";
 import styled from "@emotion/styled";
 import Link from "next/link";
@@ -36,39 +36,32 @@ export async function getServerSideProps({ req }) {
   //   };
   // }
 
-  // //all posts by current user
-  // const response = await axios.get(
-  //   `http://localhost:3000/api/patient/post/${user._id}`
-  // );
-  // const posts = response.data.data;
-
-  // let consultations = [];
-  // //all consultation offers on current post
-  // if (posts[0]) {
-  //   const res = await axios.get(
-  //     `http://localhost:3000/api/doctor/consultation/topatient/${posts[0]._id}`
-  //   );
-  //   consultations = res.data.data;
-  // }
+  //all posts
+  const response = await axios.get(`http://localhost:3000/api/patient/post/`);
+  const posts = response.data.posts;
 
   return {
-    props: { session },
+    props: { session, posts },
   };
 }
 
-const Home = ({}) => {
+const Home = ({ posts }) => {
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <>
       <MainLayout>
-        <div className="w-full h-full flex content-center items-center gap-8 p-8 overflow-x-hidden bg-stone-200">
-          <div className="h-full shadow-xl bg-neutral-900 w-[40%] p-4 rounded-xl flex flex-col content-center">
+        <div className="w-full h-full flex justify-center  gap-8 p-8 bg-lightMode-background dark:bg-darkMode-background text-lightMode-txt dark:text-darkMode-txt overflow-scroll">
+          <div className="h-auto shadow-xl bg-neutral-900 w-1/5 p-4 rounded-lg flex flex-col content-center">
             <div className="flex content-center items-center flex-col gap-2 p-2 border-b-[1px] border-white">
               <img
-                className="mt-5 w-[18rem] h-[18rem] rounded-full object-cover"
+                className="mt-5 p-8 w-auto h-auto rounded-full object-cover"
                 src="https://i.redd.it/i3lr0r2xqt861.jpg"
                 alt=""
               />
-              <span className="text-4xl font-bold text-white">Full name</span>
+              <span className="text-4xl font-bold text-white">
+                {/* {session.user.name} */}FullName
+              </span>
             </div>
             <div className="px-4 gap-4 flex content-center items-center flex-col border-b-[1px] border-white text-white p-5">
               <div className="flex flex-row items-center">
@@ -89,12 +82,14 @@ const Home = ({}) => {
               </button>
             </div>
           </div>
-          <div className="w-full h-full flex flex-col">
-            <RequestBox />
-            <RequestBox />
-            <RequestBox />
+          <div className="w-1/3 h-full flex flex-col">
+            {posts.map((post) => {
+              return <RequestBox key={post._id} post={post} />;
+            })}
           </div>
-          <TrendingBox />
+          <div className="w-1/4">
+            <TrendingBox />
+          </div>
         </div>
       </MainLayout>
     </>

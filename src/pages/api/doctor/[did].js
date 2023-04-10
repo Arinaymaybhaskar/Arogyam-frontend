@@ -5,14 +5,12 @@ export default async function handler(req, res) {
   dbConnect().catch((error) => res.json({ error: "Connection Failed" }));
 
   if (req.method === "POST") {
-    const { experience, education, qualification, twitter, linkedin } =
-      req.body;
+    const { experience, qualification, twitter, linkedin } = req.body;
 
     const doctor = await Doctors.findOneAndUpdate(
       { did: req.query.did },
       {
         experience,
-        education,
         qualification,
         twitter,
         linkedin,

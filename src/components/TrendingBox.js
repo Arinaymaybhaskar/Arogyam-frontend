@@ -17,9 +17,10 @@ const Array = [
 const TrendingBox = () => {
   return (
     <>
-      <div className="w-96 flex flex-col p-4 gap-4 shadow-xl bg-stone-100">
-        <div className="w-full flex content-center items-center p-2 rounded-md text-3xl text-teal-600">
-          Trending Specialist
+      <div className=" flex flex-col p-4 gap-4 shadow-xl bg-lightMode-component dark:bg-darkMode-component text-lightMode-txt dark:text-darkMode-txt rounded-lg sticky top-0">
+        <div className="w-full font-bold tracking-tight leading-tight flex flex-wrap content-center items-center p-2 rounded-md text-3xl bg-lightMode-componentHead dark:bg-darkMode-componentHead">
+          <p className="mr-2">Trending</p>
+          <span className="text-cyan-600 dark:text-cyan-300">Specialists</span>
         </div>
         {Array.map((name, index) => {
           return (

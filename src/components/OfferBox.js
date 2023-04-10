@@ -6,7 +6,7 @@ import Link from "next/link";
 const OfferBox = () => {
   return (
     <>
-      <div className="flex content-center items-center flex-col w-96 bg-stone-100 shadow-md m-4 p-4 gap-2">
+      <div className="flex content-center items-center flex-col w-96 bg-lightMode-component text-lightMode-txt dark:bg-darkMode-component dark:text-darkMode-txt shadow-md m-4 p-4 gap-2">
         <div className="w-full flex content-center items-center p-1">
           <div className="w-full flex content-center items-center">
             <img

@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     });
 
     if (isDoctor) {
-      await Doctors.create({
+      const doctor = await Doctors.create({
         did: user._id,
       });
     }

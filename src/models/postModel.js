@@ -12,11 +12,11 @@ const PostSchema = new Schema(
     },
     images: {
       type: String,
-      default: "",
     },
     severity: {
-      type: Number,
-      default: 0,
+      type: String,
+      enum: ["low", "medium", "high"],
+      default: "low",
     },
     solved: {
       type: Boolean,

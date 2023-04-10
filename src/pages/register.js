@@ -56,14 +56,13 @@ const Register = () => {
         isDoctor,
       });
 
-      if (data.status === false) {
-        console.log(data.msg);
-        toast.error(data.msg, toastOptions);
-      }
+      // if (data.status === false) {
+      //   console.log(data.msg);
+      //   toast.error(data.msg, toastOptions);
+      // }
 
       if (data.status === true) {
-        let path = isDoctor ? "/doctor" : "/";
-        router.push(path);
+        router.push("/login");
       }
     }
   };
@@ -190,7 +189,9 @@ const Register = () => {
                       className="w-4 h-4 border border-black rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       {...formik.getFieldProps("isDoctor")}
                     />
-                    <span className="ml-2 text-cyan-950 dark:text-cyan-200">Sign up as a doctor?</span>
+                    <span className="ml-2 text-cyan-950 dark:text-cyan-200">
+                      Sign up as a doctor?
+                    </span>
                   </div>
                 </div>
                 <button

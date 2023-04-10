@@ -10,6 +10,7 @@ import TrendingBox from "@/components/TrendingBox";
 import { getSession, useSession } from "next-auth/react";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
+import { FaSort } from "react-icons/fa";
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
@@ -45,7 +46,7 @@ export async function getServerSideProps({ req }) {
   const posts = response.data.data;
 
   let consultations = [];
-  //all consultation offers on current post
+  // all consultation offers on current post
   if (posts[0]) {
     const res = await axios.get(
       `http://localhost:3000/api/doctor/consultation/topatient/${posts[0]._id}`
@@ -60,7 +61,7 @@ export async function getServerSideProps({ req }) {
 
 const Home = ({ user, posts, consultations }) => {
   const [image, setImage] = useState(null);
-  // const [id, setId] = useState("");
+
   const onSubmit = async (values, error) => {
     const body = new FormData();
     body.append("file", image);
@@ -71,12 +72,6 @@ const Home = ({ user, posts, consultations }) => {
     const response = await fetch("/api/upload", {
       method: "POST",
       body,
-      // body: JSON.stringify({
-      //   id: user._id,
-      // }),
-      // headers: {
-      //   "Content-type": "application/json",
-      // },
     });
 
     const { description, severity } = values;
@@ -84,7 +79,7 @@ const Home = ({ user, posts, consultations }) => {
       uid: user._id,
       description,
       severity,
-      images: `/public/uploads/${user._id + image.name}`,
+      images: `/uploads/${user._id + image.name}`,
     });
   };
 
@@ -98,21 +93,22 @@ const Home = ({ user, posts, consultations }) => {
   return (
     <>
       <MainLayout>
-        <div className="w-full h-full flex justify-around items-start overflow-x-hidden p-5 gap-10 bg-stone-200">
-          <div className="w-2/3 flex flex-col gap-5 p-5 pt-0">
-            {!posts[0].solved ? (
+        <div className="w-full h-full flex justify-around items-start overflow-x-hidden p-5 gap-10 text-lightMode-txt dark:text-darkMode-txt bg-lightMode-background dark:bg-darkMode-background">
+          <div className="w-[75%] flex flex-col gap-5 p-5 pt-0">
+            {posts[0] && !posts[0].solved ? (
               <>
                 <CurrentPost post={posts[0]} />
-                <div className="w-full flex justify-around items-center text-white">
-                  <div className="text-teal-500 text-xl font-bold tracking-tight leading-tight">
+                <div className="w-full flex gap-8 items-center ">
+                  <div className=" text-xl font-bold tracking-tight leading-tight flex flex-row">
+                    <FaSort className="mx-2 cursor-pointer" />
                     Sort By
                   </div>
-                  <div className="text-teal-500 text-xl font-bold tracking-tight leading-tight">
+                  <div className=" text-xl font-bold tracking-tight leading-tight">
                     15 OFFERS
                   </div>
                 </div>
 
-                <div className="flex flex-row flex-wrap justify-between">
+                <div className="flex flex-row flex-wrap justify-start">
                   <OfferBox />
                   <OfferBox />
                   <OfferBox />
@@ -120,7 +116,7 @@ const Home = ({ user, posts, consultations }) => {
                 </div>
               </>
             ) : (
-              <div className="w-full flex items-center flex-col bg-stone-100 shadow-xl h-fit p-4 gap-4">
+              <div className="w-full flex items-center flex-col text-lightMode-txt dark:text-darkMode-txt bg-lightMode-component dark:bg-darkMode-component shadow-xl h-fit p-4 gap-4">
                 <div className="flex content-center items-center w-full">
                   <div className="w-full flex flex-row content-center items-center">
                     <img
@@ -152,17 +148,21 @@ const Home = ({ user, posts, consultations }) => {
                     />
 
                     <span className="flex items-center gap-2">
-                      <label htmlFor="severity" className="font-semibold">
+                      <label
+                        className="block uppercase tracking-wide text-xs font-semibold mb-2"
+                        htmlFor="grid-state"
+                      >
                         Severity
                       </label>
-                      <input
-                        id="severity"
-                        type="range"
-                        min="0"
-                        max="10"
-                        className=""
-                        {...formik.getFieldProps("severity")}
-                      ></input>
+                      <select
+                        className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
+                        id="grid-state"
+                        {...formik.getFieldProps("gender")}
+                      >
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                      </select>
                     </span>
 
                     <button
@@ -177,7 +177,9 @@ const Home = ({ user, posts, consultations }) => {
               </div>
             )}
           </div>
-          <TrendingBox />
+          <div className="w-[25%] flex sticky top-0">
+            <TrendingBox />
+          </div>
         </div>
       </MainLayout>
     </>
