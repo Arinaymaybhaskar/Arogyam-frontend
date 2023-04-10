@@ -1,38 +1,38 @@
 import React from "react";
-import { getSession } from "next-auth/react";
 import axios from "axios";
 import { useFormik } from "formik";
-import {
-  AiOutlineLink,
-  AiFillYoutube,
-  AiFillLinkedin,
-  AiOutlineTwitter,
-} from "react-icons/Ai";
+import { AiFillLinkedin, AiOutlineTwitter } from "react-icons/Ai";
+import { toast } from "react-toastify";
 
-const MoreInfo = ({ user }) => {
-  const handleValidation = () => {
-    return true;
+const MoreInfo = ({ doctor }) => {
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
   };
 
   const onSubmit = async (values, err) => {
-    if (handleValidation()) {
-      const { experience, qualification, linkdin, twitter } = values;
+    const { qualification, experience, linkedin, twitter } = values;
 
-      const { data } = await axios.post(`/api/doctor/${user._id}`, {
-        qualification,
-        linkdin,
-        twitter,
-        experience,
-      });
-    }
+    const res = await axios.post(`/api/user/doctor/${doctor._id}`, {
+      qualification,
+      experience,
+      linkedin,
+      twitter,
+    });
+
+    if (res.status === 200) toast.info(res.data.msg);
+    else toast.error(res.data.msg);
   };
 
   const formik = useFormik({
     initialValues: {
       qualification: "",
-      linkdin: "",
-      twitter: "",
       experience: "",
+      linkedin: "",
+      twitter: "",
     },
     onSubmit,
   });

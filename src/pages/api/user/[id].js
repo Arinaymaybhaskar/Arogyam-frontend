@@ -17,10 +17,14 @@ export default async function handler(req, res) {
       gender,
     });
 
-    return res.json({ status: true, data });
+    if (!data) {
+      return res.status(400).json({ msg: "Not Updated" });
+    }
+
+    return res.status(200).json({ data, msg: "Updated Successfully" });
   } else if (req.method === "GET") {
     const data = await Users.findById(req.query.id);
-    return res.json({ status: true, data });
+    return res.status(200).json({ data });
   } else {
     res.status(500).json({ msg: "Only Post Request is Allowed" });
   }

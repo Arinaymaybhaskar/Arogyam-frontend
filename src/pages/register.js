@@ -1,12 +1,10 @@
-import AuthLayout from "@/layouts/AuthLayout";
-import React, { useState } from "react";
-import styled from "@emotion/styled";
+import React from "react";
 import Link from "next/link";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import axios from "axios";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const router = useRouter();
@@ -20,48 +18,41 @@ const Register = () => {
   };
 
   const handleValidation = () => {
-    // const { password, confirmPassword, username, email } = values;
-    // if (password !== confirmPassword) {
-    //   toast.error(
-    //     "Password and confirm password should be same.",
-    //     toastOptions
-    //   );
-    //   return false;
-    // } else if (username.length < 3) {
-    //   toast.error(
-    //     "Username should be greater than 3 characters.",
-    //     toastOptions
-    //   );
-    //   return false;
-    // } else if (password.length < 8) {
-    //   toast.error(
-    //     "Password should be equal or greater than 8 characters.",
-    //     toastOptions
-    //   );
-    //   return false;
-    // } else if (email === "") {
-    //   toast.error("Email is required.", toastOptions);
-    //   return false;
-    // }
+    const { password, confirmPassword, fullname, email } = formik.values;
+    if (password !== confirmPassword) {
+      toast.error(
+        "Password and confirm password should be same.",
+        toastOptions
+      );
+      return false;
+    } else if (password.length < 8) {
+      toast.error(
+        "Password should be equal or greater than 8 characters.",
+        toastOptions
+      );
+      return false;
+    } else if (email === "") {
+      toast.error("Email is required.", toastOptions);
+      return false;
+    }
     return true;
   };
 
   const onSubmit = async (values, error) => {
     if (handleValidation()) {
       const { email, fullname, password, isDoctor } = values;
-      const { data } = await axios.post("/api/auth/signup", {
+      const res = await axios.post("/api/auth/signup", {
         fullname,
         email,
         password,
         isDoctor,
       });
 
-      // if (data.status === false) {
-      //   console.log(data.msg);
-      //   toast.error(data.msg, toastOptions);
-      // }
+      if (res.status === 400) {
+        toast.error(res.data.msg, toastOptions);
+      }
 
-      if (data.status === true) {
+      if (res.status === 200) {
         router.push("/login");
       }
     }
@@ -94,9 +85,9 @@ const Register = () => {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
               />
             </svg>
@@ -214,6 +205,7 @@ const Register = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 };

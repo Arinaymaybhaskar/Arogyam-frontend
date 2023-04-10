@@ -21,14 +21,18 @@ export default async function handler(req, res) {
       isDoctor,
     });
 
+    if (!user) {
+      return res.status(400).json({ msg: "User Already Registered" });
+    }
+
     if (isDoctor) {
-      const doctor = await Doctors.create({
-        did: user._id,
+      await Doctors.create({
+        doctorId: user._id,
       });
     }
 
     delete user.password;
-    return res.json({ status: true, user });
+    return res.status(200).json({ user });
   } else {
     res.status(500).json({ msg: "Only Post Request is Allowed" });
   }

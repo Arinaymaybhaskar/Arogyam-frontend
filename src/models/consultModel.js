@@ -2,15 +2,15 @@ import { Schema, model, models } from "mongoose";
 
 const ConsultationSchema = new Schema(
   {
-    doctorid: {
+    doctorId: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    postid: {
+    postId: {
       type: Schema.Types.ObjectId,
       ref: "Post",
     },
-    dname: {
+    doctorName: {
       type: String,
       required: true,
     },

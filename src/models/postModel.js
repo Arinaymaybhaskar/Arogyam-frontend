@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const PostSchema = new Schema(
   {
-    uid: {
+    patientId: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
@@ -10,7 +10,7 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
-    images: {
+    image: {
       type: String,
     },
     severity: {

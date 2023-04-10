@@ -5,19 +5,21 @@ export default async function handler(req, res) {
   dbConnect().catch((error) => res.json({ error: "Connection Failed" }));
 
   if (req.method === "POST") {
-    const { uid, description, severity, images } = req.body;
+    const { patientId, description, severity, image } = req.body;
 
     const post = await Posts.create({
-      uid,
+      patientId,
       description,
       severity,
-      images,
+      image,
     });
 
-    return res.json({ status: true, post });
+    return res.status(200).json({ post, msg: "Posted Successfully" });
   } else if (req.method === "GET") {
-    const posts = await Posts.find();
+    const data = await Posts.find().sort({
+      updatedAt: -1,
+    });
 
-    return res.json({ status: true, posts });
+    return res.status(200).json({ data });
   }
 }

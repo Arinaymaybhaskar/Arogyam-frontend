@@ -7,6 +7,6 @@ export default async function handler(req, res) {
   if (req.method === "DELETE") {
     const data = await Posts.findByIdAndRemove(req.query.postId);
 
-    return res.json({ status: true, data });
+    return res.status(200).json({ data });
   }
 }

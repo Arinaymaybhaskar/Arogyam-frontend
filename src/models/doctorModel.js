@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 const DoctorSchema = new Schema({
-  did: {
+  doctorId: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
@@ -10,7 +10,6 @@ const DoctorSchema = new Schema({
   },
   qualification: {
     type: String,
-    required: true,
   },
   twitter: {
     type: String,

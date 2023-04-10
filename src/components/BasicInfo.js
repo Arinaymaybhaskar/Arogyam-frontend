@@ -1,45 +1,65 @@
 import React from "react";
 import axios from "axios";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 
-const BasicInfo = ({ user }) => {
+const BasicInfo = ({ doctor }) => {
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+
   const handleValidation = () => {
+    const { password, fullname, contact } = formik.values;
+    if (password === "") {
+      toast.error("Password cannot be empty.", toastOptions);
+      return false;
+    } else if (fullname.length < 3) {
+      toast.error(
+        "Fullname should be greater than 3 characters.",
+        toastOptions
+      );
+      return false;
+    } else if (password.length < 8) {
+      toast.error(
+        "Password should be equal or greater than 8 characters.",
+        toastOptions
+      );
+      return false;
+    } else if (contact.length < 10) {
+      toast.error("Invalid Contact", toastOptions);
+      return false;
+    }
     return true;
   };
 
   const onSubmit = async (values, err) => {
     if (handleValidation()) {
-      const {
-        fullname,
-        dob,
-        // qualification,
-        contact,
-        password,
-        gender,
-        // linkdin,
-        // twitter,
-      } = values;
+      const { fullname, dob, contact, password, gender } = values;
 
-      const { data } = await axios.post(`/api/patient/${user._id}`, {
+      const res = await axios.post(`/api/user/${doctor._id}`, {
         fullname,
         dob,
         contact,
         password,
         gender,
       });
+
+      if (res.status === 200) toast.info(res.data.msg);
+      else toast.error(res.data.msg);
     }
   };
-  console.log(user);
+
   const formik = useFormik({
     initialValues: {
-      fullname: user.fullname,
-      dob: user.dob,
-      // qualification:"",
-      contact: user.contact,
+      fullname: doctor.fullname,
+      dob: doctor.dob,
+      contact: doctor.contact,
       password: "***************",
-      gender: user.gender,
-      // linkdin:"",
-      // twitter:"",
+      gender: doctor.gender,
     },
     onSubmit,
   });
@@ -132,15 +152,15 @@ const BasicInfo = ({ user }) => {
             Password
           </label>
           <input
-            className="appearance-none block w-full bg-neutral-200 mb-3 border-red-600 border-[1px] dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
+            className="appearance-none block w-full bg-neutral-200 mb-3 border-[1px] dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
             id="grid-password"
             type="password"
             placeholder="******************"
             {...formik.getFieldProps("password")}
           />
-          <p className="text-red-500 text-xs italic">
+          {/* <p className="text-red-500 text-xs italic">
             Please fill out this field.
-          </p>
+          </p> */}
         </div>
       </div>
 

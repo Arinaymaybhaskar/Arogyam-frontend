@@ -1,29 +1,13 @@
 import Navbar from "@/components/Navbar";
 import React from "react";
-import { getSession } from "next-auth/react";
-
-export async function getServerSideProps({ req }) {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-}
+import { useSession } from "next-auth/react";
 
 const MainLayout = ({ children }) => {
+  const { data: session } = useSession();
   return (
     <>
       <div className="w-screen h-screen overflow-hidden flex flex-col">
-        <Navbar />
+        <Navbar isDoctor={session.user.isDoctor} />
         {children}
       </div>
     </>

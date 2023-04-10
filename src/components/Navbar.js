@@ -1,17 +1,13 @@
 import Link from "next/link";
-import styled from "@emotion/styled";
-import React, { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import React from "react";
+import { signOut } from "next-auth/react";
 
 const Navbar = ({ isDoctor }) => {
-  const { data: session } = useSession();
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
-
   const handleSignOut = () => {
     signOut();
   };
 
-  const basePath = isDoctor ? "/" : "/doctor/";
+  const basePath = isDoctor ? "/doctor/" : "/";
 
   return (
     <>
@@ -37,16 +33,15 @@ const Navbar = ({ isDoctor }) => {
             </span>
           </div>
           <div className="order-3 w-full md:w-auto md:order-2">
-            <ul className="text-xl flex justify-around">
+            <ul className="text-xl flex justify-around gap-4">
               <li className="md:px-2 md:py-2 dark:text-white dark:hover:text-slate-400 hover:text-white">
                 <Link href={basePath}>Home</Link>
               </li>
               <li className="md:px-2 md:py-2 dark:text-white dark:hover:text-slate-400 hover:text-white">
                 <Link href={`${basePath}profile`}>Profile</Link>
               </li>
-              {!isDoctor ? (
+              {isDoctor ? (
                 <>
-                  {" "}
                   <li className="md:px-2 md:py-2 dark:text-white dark:hover:text-slate-400 hover:text-white">
                     <Link href="/doctor/consult">Consult</Link>
                   </li>

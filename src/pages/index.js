@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { MdSort } from "react-icons/md";
-import styled from "@emotion/styled";
-import Link from "next/link";
 import MainLayout from "@/layouts/MainLayout";
 import OfferBox from "@/components/OfferBox";
 import CurrentPost from "@/components/CurrentPost";
 import TrendingBox from "@/components/TrendingBox";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useFormik } from "formik";
-import { useRouter } from "next/router";
 import { FaSort } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
@@ -25,31 +24,20 @@ export async function getServerSideProps({ req }) {
   }
 
   //current user
-  const result = await axios.post("http://localhost:3000/api/patient", {
+  let res = await axios.post("http://localhost:3000/api/user", {
     email: session.user.email,
   });
-  const user = result.data.data;
-
-  if (user.isDoctor) {
-    return {
-      redirect: {
-        destination: "/doctor",
-        permanent: false,
-      },
-    };
-  }
+  const user = res.data.data;
 
   //all posts by current user
-  const response = await axios.get(
-    `http://localhost:3000/api/patient/post/${user._id}`
-  );
-  const posts = response.data.data;
+  res = await axios.get(`http://localhost:3000/api/user/post/${user._id}`);
+  const posts = res.data.data;
 
   let consultations = [];
   // all consultation offers on current post
   if (posts[0]) {
-    const res = await axios.get(
-      `http://localhost:3000/api/doctor/consultation/topatient/${posts[0]._id}`
+    res = await axios.get(
+      `http://localhost:3000/api/user/doctor/consultation/toPost/${posts[0]._id}`
     );
     consultations = res.data.data;
   }
@@ -61,6 +49,19 @@ export async function getServerSideProps({ req }) {
 
 const Home = ({ user, posts, consultations }) => {
   const [image, setImage] = useState(null);
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
+
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
   const onSubmit = async (values, error) => {
     const body = new FormData();
@@ -75,18 +76,23 @@ const Home = ({ user, posts, consultations }) => {
     });
 
     const { description, severity } = values;
-    const { data } = await axios.post("/api/patient/post", {
-      uid: user._id,
+    const res = await axios.post("/api/user/post", {
+      patientId: user._id,
       description,
       severity,
-      images: `/uploads/${user._id + image.name}`,
+      image: `/uploads/${user._id + image.name}`,
     });
+
+    if (res.status === 200) {
+      toast.info(res.data.msg);
+      refreshData();
+    }
   };
 
   const formik = useFormik({
     initialValues: {
       description: "",
-      severity: 0,
+      severity: "low",
     },
     onSubmit,
   });
@@ -127,22 +133,22 @@ const Home = ({ user, posts, consultations }) => {
                     <span className="ml-4 text-2xl font-bold">Ankur Yadav</span>
                   </div>
                   <span className="flex items-center gap-2 w-[16vw]">
-                      <label
-                        className="block uppercase tracking-wide text-xs font-semibold mb-2"
-                        htmlFor="grid-state"
-                      >
-                        Severity
-                      </label>
-                      <select
-                        className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
-                        id="grid-state"
-                        {...formik.getFieldProps("gender")}
-                      >
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
-                      </select>
-                    </span>
+                    <label
+                      className="block uppercase tracking-wide text-xs font-semibold mb-2"
+                      htmlFor="grid-state"
+                    >
+                      Severity
+                    </label>
+                    <select
+                      className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
+                      id="grid-state"
+                      {...formik.getFieldProps("gender")}
+                    >
+                      <option>Low</option>
+                      <option>Medium</option>
+                      <option>High</option>
+                    </select>
+                  </span>
                 </div>
                 <form
                   className="w-full flex flex-col gap-2 text-sm"
@@ -167,7 +173,7 @@ const Home = ({ user, posts, consultations }) => {
                     <button
                       className="font-medium bg-lightMode-btn dark:bg-darkMode-btn hover:bg-cyan-600 disabled:text-black/40 disabled:bg-white/75 disabled:cursor-not-allowed text-white rounded-md px-12 p-2"
                       type="submit"
-                      // disabled={!input.trim() && !photoUrl.trim()}
+                      disabled={!formik.values.description.trim()}
                     >
                       Post
                     </button>
@@ -181,6 +187,7 @@ const Home = ({ user, posts, consultations }) => {
           </div>
         </div>
       </MainLayout>
+      <ToastContainer />
     </>
   );
 };

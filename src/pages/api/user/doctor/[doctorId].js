@@ -8,16 +8,19 @@ export default async function handler(req, res) {
     const { experience, qualification, twitter, linkedin } = req.body;
 
     const doctor = await Doctors.findOneAndUpdate(
-      { did: req.query.did },
+      { doctorId: req.query.doctorId },
       {
         experience,
         qualification,
         twitter,
         linkedin,
+      },
+      {
+        new: true,
       }
     );
 
-    return res.json({ status: true, doctor });
+    return res.status(200).json({ doctor, msg: "Updated Successfully" });
   } else {
     res.status(500).json({ msg: "Only Post Request is Allowed" });
   }

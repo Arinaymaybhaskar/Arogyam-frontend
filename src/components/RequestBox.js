@@ -1,14 +1,14 @@
-import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
 import { FcHighPriority, FcShare, FcPlus, FcInspection } from "react-icons/fc";
-import { BsClipboard2CheckFill } from "react-icons/bs";
 import useSWR from "swr";
+import ConsultBox from "./ConsultBox";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const RequestBox = ({ post }) => {
+const RequestBox = ({ post, doctor }) => {
+  const [offer, setOffer] = useState(false);
   const { data, error, isLoading } = useSWR(
-    `/api/patient/${post.uid}`,
+    `/api/user/${post.patientId}`,
     fetcher
   );
 
@@ -36,12 +36,15 @@ const RequestBox = ({ post }) => {
         </div>
         <div className="flex px-8 py-2 gap-2 w-full flex-col">
           <p>{post.description}</p>
-          <img className="w-full h-full p-2" src={post.images} alt="" />
+          <img className="w-full h-full p-2" src={post.image} alt="" />
         </div>
         <div className=" flex px-2 py-0 w-full gap-2">
           <div className="w-fit text-xl flex content-center items-center hover:text-gray-600 cursor-pointer p-2 py-0">
             <span className="text-xl pl-2">
-              <button className="text-md p-3 py-0 w-full rounded-xl text-white m-5 my-0 flex flex-row items-center font-bold tracking-tight leading-tight content-center">
+              <button
+                className="text-md p-3 py-0 w-full rounded-xl text-white m-5 my-0 flex flex-row items-center font-bold tracking-tight leading-tight content-center"
+                onClick={() => setOffer(!offer)}
+              >
                 <FcPlus className="text-2xl m-2" />
                 Offer consultation
               </button>
@@ -56,6 +59,7 @@ const RequestBox = ({ post }) => {
             </span>
           </div>
         </div>
+        {offer && <ConsultBox post={post} doctor={doctor} />}
       </div>
     </>
   );

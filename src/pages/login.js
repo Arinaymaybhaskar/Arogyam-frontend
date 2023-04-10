@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const router = useRouter();
@@ -18,32 +18,29 @@ const Login = () => {
   };
 
   const validateForm = () => {
-    // const { username, password } = values;
-    // if (username === "") {
-    //   toast.error("Email and Password is required.", toastOptions);
-    //   return false;
-    // } else if (password === "") {
-    //   toast.error("Email and Password is required.", toastOptions);
-    //   return false;
-    // }
+    const { email, password } = formik.values;
+    if (email === "") {
+      toast.error("Email and Password is required.", toastOptions);
+      return false;
+    } else if (password === "") {
+      toast.error("Email and Password is required.", toastOptions);
+      return false;
+    }
     return true;
   };
 
   const onSubmit = async (values, error) => {
     if (validateForm()) {
-      const result = await signIn("credentials", {
+      const res = await signIn("credentials", {
         redirect: false,
         email: values.email,
         password: values.password,
       });
 
       const session = await getSession();
-      console.log(session);
 
-      console.log(result);
-
-      if (result.ok) router.push(session.user.isDoctor ? "/doctor" : "/");
-      else console.log(error);
+      if (res.ok) router.push(session.user.isDoctor ? "/doctor" : "/");
+      else toast.error(res.error, toastOptions);
     }
   };
 
@@ -71,9 +68,9 @@ const Login = () => {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
               />
             </svg>
@@ -144,6 +141,7 @@ const Login = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 };

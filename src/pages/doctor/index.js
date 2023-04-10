@@ -1,13 +1,11 @@
-import Navbar from "@/components/Navbar";
+import TrendingBox from "@/components/TrendingBox";
+import MainLayout from "@/layouts/MainLayout";
 import RequestBox from "@/components/RequestBox";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getSession, useSession } from "next-auth/react";
-import styled from "@emotion/styled";
-import Link from "next/link";
-// import "react-toastify/dist/ReactToastify.css";
-import TrendingBox from "@/components/TrendingBox";
-import MainLayout from "@/layouts/MainLayout";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
@@ -21,33 +19,23 @@ export async function getServerSideProps({ req }) {
     };
   }
 
-  // //current user
-  // const result = await axios.post("http://localhost:3000/api/patient", {
-  //   email: session.user.email,
-  // });
-  // const user = result.data.data;
-
-  // if (user.isDoctor) {
-  //   return {
-  //     redirect: {
-  //       destination: "/doctor",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  //current user
+  let res = await axios.post("http://localhost:3000/api/user", {
+    email: session.user.email,
+  });
+  const doctor = res.data.data;
 
   //all posts
-  const response = await axios.get(`http://localhost:3000/api/patient/post/`);
-  const posts = response.data.posts;
+  res = await axios.get(`http://localhost:3000/api/user/post/`);
+  const posts = res.data.data;
 
   return {
-    props: { session, posts },
+    props: { session, doctor, posts },
   };
 }
 
-const Home = ({ posts }) => {
+const Home = ({ doctor, posts }) => {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <>
       <MainLayout>
@@ -60,7 +48,7 @@ const Home = ({ posts }) => {
                 alt=""
               />
               <span className="text-4xl font-bold text-white">
-                {/* {session.user.name} */}FullName
+                {doctor.fullname}
               </span>
             </div>
             <div className="px-4 gap-4 flex content-center items-center flex-col border-b-[1px] border-white text-white p-5">
@@ -82,9 +70,9 @@ const Home = ({ posts }) => {
               </button>
             </div>
           </div>
-          <div className="w-1/3 h-full flex flex-col">
+          <div className="w-2/5 h-full flex flex-col">
             {posts.map((post) => {
-              return <RequestBox key={post._id} post={post} />;
+              return <RequestBox key={post._id} post={post} doctor={doctor} />;
             })}
           </div>
           <div className="w-1/4">
@@ -92,6 +80,7 @@ const Home = ({ posts }) => {
           </div>
         </div>
       </MainLayout>
+      <ToastContainer />
     </>
   );
 };

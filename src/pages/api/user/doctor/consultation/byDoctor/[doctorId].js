@@ -1,14 +1,16 @@
 import dbConnect from "@/dbconnect";
-import Posts from "@/models/postModel";
+import Consultations from "@/models/consultModel";
 
 export default async function handler(req, res) {
   dbConnect().catch((error) => res.json({ error: "Connection Failed" }));
 
   if (req.method === "GET") {
-    const data = await Posts.find({ uid: req.query.uid }).sort({
+    const data = await Consultations.find({
+      doctorId: req.query.doctorId,
+    }).sort({
       updatedAt: -1,
     });
 
-    return res.json({ status: true, data });
+    return res.status(200).json({ data });
   }
 }
