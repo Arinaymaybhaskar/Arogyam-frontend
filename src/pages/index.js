@@ -100,7 +100,7 @@ const Home = ({ user, posts, consultations }) => {
     <>
       <MainLayout>
         <div className="w-full h-full flex justify-around items-start overflow-x-hidden p-5 gap-10 text-lightMode-txt dark:text-darkMode-txt bg-lightMode-background dark:bg-darkMode-background">
-          <div className="w-[75%] flex flex-col gap-5 p-5 pt-0">
+          <div className="w-full flex flex-col gap-5 p-5 pt-0">
             {posts[0] && !posts[0].solved ? (
               <>
                 <CurrentPost
@@ -142,7 +142,7 @@ const Home = ({ user, posts, consultations }) => {
                       {user.fullname}
                     </span>
                   </div>
-                  <span className="flex items-center gap-2 w-[16vw]">
+                  <span className="flex items-center justify-end gap-2 w-[50%] flex-wrap">
                     <label
                       className="block uppercase tracking-wide text-xs font-semibold mb-2"
                       htmlFor="grid-state"
@@ -150,7 +150,7 @@ const Home = ({ user, posts, consultations }) => {
                       Severity
                     </label>
                     <select
-                      className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
+                      className="appearance-none block w-2/3 bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                       id="grid-state"
                       {...formik.getFieldProps("gender")}
                     >
@@ -192,7 +192,7 @@ const Home = ({ user, posts, consultations }) => {
               </div>
             )}
           </div>
-          <div className="w-[25%] flex sticky top-0">
+          <div className="w-[25%] flex sticky top-0" id="Trending">
             <TrendingBox />
           </div>
         </div>

@@ -14,7 +14,7 @@ const CurrentPost = ({ user, post, refreshData }) => {
 
   return (
     <>
-      <div className="w-2/3 flex content-center items-center flex-col bg-lightMode-component text-lightMode-txt dark:bg-darkMode-component dark:text-darkMode-txt shadow-xl h-fit p-4 gap-4 rounded-lg min-w-1/2">
+      <div className="w-full h-[50%] flex content-center items-center flex-col bg-lightMode-component text-lightMode-txt dark:bg-darkMode-component dark:text-darkMode-txt shadow-xl p-4 gap-4 rounded-lg min-w-1/2">
         <div className="flex content-center items-center w-full">
           <div className="w-full flex flex-row content-center items-center">
             <img
@@ -32,8 +32,8 @@ const CurrentPost = ({ user, post, refreshData }) => {
           </span>
         </div>
         <div className="flex flex-col gap-2 w-full ">
-          <p className="text-md text-justify">{post.description}</p>
-          <img className="max-w-1/2 h-auto p-5" src={post.image} alt="" />
+          <p className="text-md text-justify font-sans">{post.description}</p>
+          <img className="w-auto h-[300px] p-5 object-contain" src={post.image} alt="" />
         </div>
       </div>
     </>

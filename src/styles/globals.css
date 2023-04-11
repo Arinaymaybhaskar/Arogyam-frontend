@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Cabin+Sketch:wght@400;700&family=Rubik:wght@300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,6 +37,25 @@ a {
   text-decoration: none;
 }
 
+#Trending{
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+#doctorProfileBox{
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+#requestBox{
+  @media screen and (max-width: 600px) {
+    padding: 20px;
+    width: 100%;
+  }
+}
+
 input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -55,4 +74,4 @@ input::-webkit-outer-spin-button,
           border: thin solid #033e4d;
           border-radius: 3px;
       }
-      
+

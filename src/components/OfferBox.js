@@ -5,11 +5,11 @@ const OfferBox = ({ consultation }) => {
   console.log(consultation);
   return (
     <>
-      <div className="flex content-center items-center flex-col w-96 bg-lightMode-component text-lightMode-txt dark:bg-darkMode-component dark:text-darkMode-txt shadow-md m-4 p-4 gap-2">
+      <div className="flex content-center rounded-lg items-center flex-col w-96 bg-lightMode-component text-lightMode-txt dark:bg-darkMode-component dark:text-darkMode-txt shadow-md m-4 p-4 gap-2">
         <div className="w-full flex content-center items-center p-1">
           <div className="w-full flex content-center items-center">
             <img
-              className="w-[3rem] h-[3rem] rounded-full"
+              className="w-[2.5rem] h-[2.5rem] rounded-full"
               src={consultation.doctorId.profile}
               alt="img"
             />
@@ -18,15 +18,15 @@ const OfferBox = ({ consultation }) => {
             </span>
           </div>
           <span className="text-center font-bold text-green-500 text-3xl">
-            ${consultation.fee}
+          ₹{consultation.fee}
           </span>
         </div>
 
-        <div className="text-justify">
-          <ul>Qualificaton - {consultation.doctorRefId.qualification}</ul>
-          <ul>Experience - {consultation.doctorRefId.experience}</ul>
-          <ul>Linkdin - {consultation.doctorRefId.linkdin}</ul>
-          <ul>Twitter - {consultation.doctorRefId.twitter}</ul>
+        <div className="text-justify font-thin font-sans">
+          <ul className="font-thin font-sans">Qualificaton - {consultation.doctorRefId.qualification}</ul>
+          <ul className="font-thin font-sans">Experience - {consultation.doctorRefId.experience}</ul>
+          <ul className="font-thin font-sans">Linkdin - {consultation.doctorRefId.linkdin}</ul>
+          <ul className="font-thin font-sans">Twitter - {consultation.doctorRefId.twitter}</ul>
         </div>
         <div className="flex content-center items-center">
           <div className="w-fit text-xl flex content-center items-center hover:text-gray-500 cursor-pointer">
