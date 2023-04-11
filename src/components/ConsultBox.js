@@ -26,9 +26,10 @@ const ConsultBox = ({ post, doctor }) => {
       const { fee, startTime, endTime } = values;
 
       const res = await axios.post("/api/user/doctor/consultation", {
-        doctorId: doctor._id,
+        doctorId: doctor.data._id,
         postId: post._id,
-        doctorName: doctor.fullname,
+        doctorName: doctor.data.fullname,
+        doctorRefId: doctor.doctorData._id,
         fee,
         timeSlot: { startTime, endTime },
       });
@@ -59,7 +60,7 @@ const ConsultBox = ({ post, doctor }) => {
             <input
               className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
               id="grid-first-name"
-              type="text"
+              type="number"
               placeholder="Full name"
               {...formik.getFieldProps("fee")}
             />

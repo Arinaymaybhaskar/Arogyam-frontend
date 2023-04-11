@@ -7,7 +7,8 @@ export default async function handler(req, res) {
   dbConnect().catch((error) => res.json({ error: "Connection Failed" }));
 
   if (req.method === "POST") {
-    const { doctorId, postId, fee, timeSlot, doctorName } = req.body;
+    const { doctorId, postId, fee, timeSlot, doctorName, doctorRefId } =
+      req.body;
 
     // const product = await stripe.products.create({ name: "Ajay Sharma" });
 
@@ -15,6 +16,7 @@ export default async function handler(req, res) {
       doctorId,
       postId,
       doctorName,
+      doctorRefId,
       fee,
       timeSlot,
       doctorName,

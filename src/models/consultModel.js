@@ -10,6 +10,10 @@ const ConsultationSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Post",
     },
+    doctorRefId: {
+      type: Schema.Types.ObjectId,
+      ref: "Doctor",
+    },
     doctorName: {
       type: String,
       required: true,

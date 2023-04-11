@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MainLayout from "@/layouts/MainLayout";
 import BasicInfo from "@/components/BasicInfo";
 import MoreInfo from "@/components/MoreInfo";
@@ -27,7 +27,18 @@ export async function getServerSideProps({ req }) {
 }
 
 const DocProfile = ({ doctor }) => {
-  const [info, setInfo] = React.useState("Basic");
+  const [info, setInfo] = useState("Basic");
+  const [image, setImage] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState(doctor.profile);
+
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setImage(i);
+      setCreateObjectURL(URL.createObjectURL(i));
+    }
+  };
 
   return (
     <>
@@ -46,7 +57,7 @@ const DocProfile = ({ doctor }) => {
               <div className=" flex justify-center mb-3 p-3 pb-0">
                 <img
                   className="rounded-full h-auto border-[1px] border-slate-600"
-                  src="https://pbs.twimg.com/profile_images/1316055876466290690/27XA54-D.jpg"
+                  src={createObjectURL}
                   alt="Profile photo"
                 />
               </div>
@@ -55,9 +66,15 @@ const DocProfile = ({ doctor }) => {
               </div>
 
               <div>
-                <button className="text-sm p-4 py-2 w-auto font-medium text-white bg-lightMode-btn dark:bg-darkMode-btn rounded-md ">
+                <div className="relative text-sm p-4 py-2 w-40 font-medium text-white bg-lightMode-btn dark:bg-darkMode-btn rounded-md ">
+                  <input
+                    id="photo"
+                    type="file"
+                    className="absolute left-0 w-40 h-full opacity-0 hover:cursor-pointer"
+                    onChange={uploadToClient}
+                  />
                   Upload New Photo
-                </button>
+                </div>
               </div>
             </div>
           </div>
@@ -82,7 +99,7 @@ const DocProfile = ({ doctor }) => {
               </div>
             </div>
             <div className="p-8 pb-0 flex justify-center">
-              {info === "Basic" && <BasicInfo doctor={doctor} />}
+              {info === "Basic" && <BasicInfo doctor={doctor} image={image} />}
               {info === "More" && <MoreInfo doctor={doctor} />}
             </div>
           </div>

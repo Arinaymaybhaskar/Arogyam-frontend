@@ -7,7 +7,7 @@ const MainLayout = ({ children }) => {
   return (
     <>
       <div className="w-screen h-screen overflow-hidden flex flex-col">
-        <Navbar isDoctor={session.user.isDoctor} />
+        <Navbar isDoctor={true} />
         {children}
       </div>
     </>

@@ -7,15 +7,27 @@ const DoctorSchema = new Schema({
   },
   experience: {
     type: String,
+    default: "",
   },
   qualification: {
     type: String,
+    default: "",
   },
   twitter: {
     type: String,
+    default: "",
   },
   linkedin: {
     type: String,
+    default: "",
+  },
+  requestCount: {
+    type: Number,
+    default: 0,
+  },
+  consultCount: {
+    type: Number,
+    default: 0,
   },
 });
 

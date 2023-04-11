@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import MainLayout from "@/layouts/MainLayout";
 import { getSession } from "next-auth/react";
@@ -29,6 +29,18 @@ export async function getServerSideProps({ req }) {
 }
 
 const Profile = ({ user }) => {
+  const [image, setImage] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState(user.profile);
+
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setImage(i);
+      setCreateObjectURL(URL.createObjectURL(i));
+    }
+  };
+
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -63,6 +75,17 @@ const Profile = ({ user }) => {
 
   const onSubmit = async (values, error) => {
     if (handleValidation()) {
+      const body = new FormData();
+      body.append("file", image);
+      body.append("id", user._id);
+
+      console.log(image.name);
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body,
+      });
+
       const { fullname, password, dob, gender, contact } = values;
       const res = await axios.post(`/api/user/${user._id}`, {
         fullname,
@@ -70,6 +93,7 @@ const Profile = ({ user }) => {
         dob,
         gender,
         contact,
+        profile: `/uploads/${user._id + image.name}`,
       });
 
       if (res.status === 200) toast.info(res.data.msg);
@@ -105,18 +129,19 @@ const Profile = ({ user }) => {
               <div className="flex justify-center mb-3 p-3 pb-0">
                 <img
                   className="rounded-full h-auto border-[1px] border-slate-600"
-                  src="https://pbs.twimg.com/profile_images/1316055876466290690/27XA54-D.jpg"
+                  src={createObjectURL}
                   alt="Profile photo"
                 />
               </div>
 
               <div className="font-bold m-4 mt-0 text-2xl">{user.fullname}</div>
 
-              <div className="text-sm p-4 py-2 w-40 font-medium text-white bg-lightMode-btn dark:bg-darkMode-btn rounded-md ">
+              <div className="relative text-sm p-4 py-2 w-40 font-medium text-white bg-lightMode-btn dark:bg-darkMode-btn rounded-md ">
                 <input
                   id="photo"
                   type="file"
-                  className="absolute left-0 w-40 h-full opacity-0"
+                  className="absolute left-0 w-40 h-full opacity-0 hover:cursor-pointer"
+                  onChange={uploadToClient}
                 />
                 Upload New Photo
               </div>
@@ -180,9 +205,6 @@ const Profile = ({ user }) => {
                     placeholder="**************"
                     {...formik.getFieldProps("password")}
                   />
-                  {/* <p className="text-red-500 text-xs italic">
-                    Please fill out this field.
-                  </p> */}
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">

@@ -91,7 +91,7 @@ const Home = ({ user, posts, consultations }) => {
 
   const formik = useFormik({
     initialValues: {
-      description: "",
+      description: "Enter your thoughts/condition",
       severity: "low",
     },
     onSubmit,
@@ -103,7 +103,11 @@ const Home = ({ user, posts, consultations }) => {
           <div className="w-[75%] flex flex-col gap-5 p-5 pt-0">
             {posts[0] && !posts[0].solved ? (
               <>
-                <CurrentPost post={posts[0]} />
+                <CurrentPost
+                  post={posts[0]}
+                  refreshData={refreshData}
+                  user={user}
+                />
                 <div className="w-full flex gap-8 items-center ">
                   <div className=" text-xl font-bold tracking-tight leading-tight flex flex-row">
                     <FaSort className="mx-2 cursor-pointer" />
@@ -115,10 +119,14 @@ const Home = ({ user, posts, consultations }) => {
                 </div>
 
                 <div className="flex flex-row flex-wrap justify-start">
-                  <OfferBox />
-                  <OfferBox />
-                  <OfferBox />
-                  <OfferBox />
+                  {consultations.map((consultation, index) => {
+                    return (
+                      <OfferBox
+                        consultation={consultation}
+                        key={consultation._id}
+                      />
+                    );
+                  })}
                 </div>
               </>
             ) : (
@@ -127,10 +135,12 @@ const Home = ({ user, posts, consultations }) => {
                   <div className="w-full flex flex-row content-center items-center">
                     <img
                       className="w-[3rem] h-[3rem] rounded-full"
-                      src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                      src={user.profile}
                       alt="img"
                     />
-                    <span className="ml-4 text-2xl font-bold">Ankur Yadav</span>
+                    <span className="ml-4 text-2xl font-bold">
+                      {user.fullname}
+                    </span>
                   </div>
                   <span className="flex items-center gap-2 w-[16vw]">
                     <label

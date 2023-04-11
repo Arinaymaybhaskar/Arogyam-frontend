@@ -21,7 +21,7 @@ const RequestBox = ({ post, doctor }) => {
           <div className="flex items-center content-center w-full ">
             <img
               className="w-11 h-11 rounded-full"
-              src="https://i.redd.it/i3lr0r2xqt861.jpg"
+              src={data.data.profile}
               alt="img"
             />
             <span className="pl-4 font-semibold tracking-tight text-lg leading-tight">
@@ -29,9 +29,8 @@ const RequestBox = ({ post, doctor }) => {
             </span>
           </div>
           <span className="text-center text-lg py-4 flex flex-row px-0">
-            Severity - {post.severity}
-            {/* <BsClipboard2CheckFill className="text-3xl text-neutral-700" />
-            <FcHighPriority className="text-3xl mx-3 " /> */}
+            <FcHighPriority className="text-3xl mx-3 " /> Severity{" "}
+            {post.severity}
           </span>
         </div>
         <div className="flex px-8 py-2 gap-2 w-full flex-col">

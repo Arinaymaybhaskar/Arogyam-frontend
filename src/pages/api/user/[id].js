@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   dbConnect().catch((error) => res.json({ error: "Connection Failed" }));
 
   if (req.method === "POST") {
-    const { fullname, password, dob, contact, gender } = req.body;
+    const { fullname, password, dob, contact, gender, profile } = req.body;
 
     const hashedPassword = await hash(password, 10);
     const data = await Users.findByIdAndUpdate(req.query.id, {
@@ -15,6 +15,7 @@ export default async function handler(req, res) {
       dob,
       contact,
       gender,
+      profile,
     });
 
     if (!data) {

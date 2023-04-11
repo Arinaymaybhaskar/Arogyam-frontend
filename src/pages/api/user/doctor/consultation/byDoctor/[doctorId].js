@@ -7,9 +7,16 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     const data = await Consultations.find({
       doctorId: req.query.doctorId,
-    }).sort({
-      updatedAt: -1,
-    });
+    })
+      .populate({
+        path: "postId", // populate blogs
+        populate: {
+          path: "patientId", // in blogs, populate comments
+        },
+      })
+      .sort({
+        updatedAt: -1,
+      });
 
     return res.status(200).json({ data });
   }

@@ -29,7 +29,8 @@ const UserSchema = new Schema({
   },
   profile: {
     type: String,
-    default: "",
+    default:
+      "https://static.vecteezy.com/system/resources/previews/004/026/956/original/person-avatar-icon-free-vector.jpg",
   },
   isDoctor: {
     type: Boolean,

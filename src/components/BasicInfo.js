@@ -3,7 +3,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
-const BasicInfo = ({ doctor }) => {
+const BasicInfo = ({ doctor, image }) => {
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -38,6 +38,16 @@ const BasicInfo = ({ doctor }) => {
 
   const onSubmit = async (values, err) => {
     if (handleValidation()) {
+      const body = new FormData();
+      body.append("file", image);
+      body.append("id", doctor._id);
+
+      console.log(image.name);
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body,
+      });
       const { fullname, dob, contact, password, gender } = values;
 
       const res = await axios.post(`/api/user/${doctor._id}`, {
@@ -46,6 +56,7 @@ const BasicInfo = ({ doctor }) => {
         contact,
         password,
         gender,
+        profile: `/uploads/${doctor._id + image.name}`,
       });
 
       if (res.status === 200) toast.info(res.data.msg);
