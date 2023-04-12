@@ -54,7 +54,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="bg-lightMode-background dark:bg-darkMode-background">
+      <section className="bg-lightMode-background dark:bg-darkMode-background h-screen flex justify-center">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"

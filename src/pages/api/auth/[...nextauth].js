@@ -17,7 +17,6 @@ export const authOptions = {
 
         // check user existance
         const user = await Users.findOne({ email: credentials.email });
-        userData = user._doc;
 
         const checkPassword = await compare(
           credentials.password,
@@ -25,6 +24,7 @@ export const authOptions = {
         );
 
         if (user && checkPassword) {
+          userData = user._doc;
           return Promise.resolve(user);
         } else {
           throw new Error("Invalid Credentials");

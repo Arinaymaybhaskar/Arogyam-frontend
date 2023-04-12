@@ -8,5 +8,11 @@ export default async function handler(req, res) {
     const data = await Consultations.findByIdAndRemove(req.query.cid);
 
     return res.status(200).json({ data, msg: "Deleted Successfully" });
+  } else if (req.method === "PUT") {
+    const data = await Consultations.findByIdAndUpdate(req.query.cid, {
+      isAccepted: req.body.isAccepted,
+    });
+
+    return res.status(200).json({ data, msg: "Updated Successfully" });
   }
 }

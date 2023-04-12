@@ -40,19 +40,22 @@ const Home = ({ doctor, posts }) => {
   return (
     <>
       <MainLayout>
-        <div className="w-full h-full flex justify-center  gap-8 p-8 bg-lightMode-background dark:bg-darkMode-background text-lightMode-txt dark:text-darkMode-txt overflow-scroll">
-          <div id="doctorProfileBox" className="h-max shadow-xl bg-lightMode-component text-lightMode-txt dark:bg-darkMode-component dark:text-darkMode-txt w-1/4 p-4 rounded-lg flex flex-col content-center sticky top-0">
-            <div className="flex content-center items-center flex-col gap-2 p-2 border-b-[1px] border-black dark:border-white">
+        <div className="w-full h-full flex justify-center gap-8 p-8 bg-lightMode-background dark:bg-darkMode-background text-lightMode-txt dark:text-darkMode-txt overflow-scroll">
+          <div
+            id="doctorProfileBox"
+            className="sticky top-0 h-fit w-[25%] flex flex-col shadow-xl bg-lightMode-component text-lightMode-txt dark:bg-darkMode-component dark:text-darkMode-txt p-2 gap-2 rounded-lg"
+          >
+            <div className="flex content-center items-center flex-col gap-2 border-b-[1px] border-black dark:border-white p-2">
               <img
-                className="mt-5 p-8 w-auto h-auto rounded-full object-cover"
+                className="w-[12rem] h-[12rem] rounded-full object-cover"
                 src={doctor.data.profile}
                 alt="pic"
               />
-              <span className="text-4xl font-bold ">
+              <span className="text-3xl font-bold ">
                 {doctor.data.fullname}
               </span>
             </div>
-            <div className="px-4 gap-4 flex content-center items-center flex-col border-b-[1px] border-black dark:border-white p-5">
+            <div className="p-4 gap-2 flex justify-center items-center flex-col border-b-[1px] border-black dark:border-white">
               <div className="flex flex-row items-center">
                 <div className="font-medium text-xl mr-2">Requests</div>
                 <div className="font-medium text-xl text-teal-700">
@@ -66,10 +69,10 @@ const Home = ({ doctor, posts }) => {
                 </div>
               </div>
             </div>
-            <div className="px-4 text-center flex justify-center items-center text-white">
+            <div className="p-4 pb-1 text-center flex justify-center items-center text-white">
               <Link href="/doctor/consult">
                 <button
-                  className="w-full h-full mt-7 font-bold -tracking-tightest leading-tight text-lg bg-lightMode-btn text-lightMode-txt dark:bg-darkMode-btn dark:text-darkMode-txt p-3 rounded-md
+                  className="w-full h-full font-bold -tracking-tightest leading-tight text-lg bg-lightMode-btn text-lightMode-txt dark:bg-darkMode-btn dark:text-darkMode-txt p-3 rounded-md
                 "
                 >
                   Manage Consultations
@@ -82,7 +85,7 @@ const Home = ({ doctor, posts }) => {
               return <RequestBox key={post._id} post={post} doctor={doctor} />;
             })}
           </div>
-          <div className="w-1/4 sticky top-0" id="Trending">
+          <div className="sticky top-0" id="Trending">
             <TrendingBox />
           </div>
         </div>

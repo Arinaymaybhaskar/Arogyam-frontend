@@ -6,7 +6,7 @@ import CurrentPost from "@/components/CurrentPost";
 import TrendingBox from "@/components/TrendingBox";
 import { getSession } from "next-auth/react";
 import { useFormik } from "formik";
-import { FaSort } from "react-icons/fa";
+import { BsSortDown, BsSortDownAlt } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
@@ -49,6 +49,7 @@ export async function getServerSideProps({ req }) {
 
 const Home = ({ user, posts, consultations }) => {
   const [image, setImage] = useState(null);
+  const [sorted, setSorted] = useState(true);
   const router = useRouter();
 
   const refreshData = () => {
@@ -99,7 +100,7 @@ const Home = ({ user, posts, consultations }) => {
   return (
     <>
       <MainLayout>
-        <div className="w-full h-full flex justify-around items-start overflow-x-hidden p-5 gap-10 text-lightMode-txt dark:text-darkMode-txt bg-lightMode-background dark:bg-darkMode-background">
+        <div className="w-full h-full flex justify-around items-start overflow-x-hidden p-5 gap-8 text-lightMode-txt dark:text-darkMode-txt bg-lightMode-background dark:bg-darkMode-background">
           <div className="w-full flex flex-col gap-5 p-5 pt-0">
             {posts[0] && !posts[0].solved ? (
               <>
@@ -108,13 +109,21 @@ const Home = ({ user, posts, consultations }) => {
                   refreshData={refreshData}
                   user={user}
                 />
-                <div className="w-full flex gap-8 items-center ">
-                  <div className=" text-xl font-bold tracking-tight leading-tight flex flex-row">
-                    <FaSort className="mx-2 cursor-pointer" />
+                <div className="w-full flex gap-4 justify-between px-4 items-center ">
+                  <div className=" text-xl font-bold tracking-tight leading-tight flex flex-row items-center gap-4">
                     Sort By
+                    <span
+                      className="cursor-pointer font-bold"
+                      onClick={() => {
+                        setSorted(!sorted);
+                        consultations.reverse();
+                      }}
+                    >
+                      {sorted ? <BsSortDownAlt /> : <BsSortDown />}
+                    </span>
                   </div>
                   <div className=" text-xl font-bold tracking-tight leading-tight">
-                    15 OFFERS
+                    {consultations.length + " "}offers
                   </div>
                 </div>
 
@@ -192,7 +201,7 @@ const Home = ({ user, posts, consultations }) => {
               </div>
             )}
           </div>
-          <div className="w-[25%] flex sticky top-0" id="Trending">
+          <div className="flex sticky top-0" id="Trending">
             <TrendingBox />
           </div>
         </div>
