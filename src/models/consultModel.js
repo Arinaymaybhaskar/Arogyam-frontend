@@ -14,6 +14,9 @@ const ConsultationSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Doctor",
     },
+    priceId: {
+      type: String,
+    },
     doctorName: {
       type: String,
       required: true,

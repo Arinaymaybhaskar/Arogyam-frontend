@@ -9,6 +9,13 @@ const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 const OfferBox = ({ consultation }) => {
   console.log(consultation);
+
+  const handleAccept = async () => {
+    const res = await axios.post("/api/checkout_sessions", {
+      priceId: consultation.priceId,
+    });
+  };
+
   React.useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
@@ -69,7 +76,7 @@ const OfferBox = ({ consultation }) => {
         </div>
         <div className="flex justify-center items-center">
           <form
-            action="/api/checkout_sessions"
+            action={`/api/checkout_sessions/${consultation.priceId}`}
             method="POST"
             className="w-fit text-xl flex justify-center items-center hover:text-gray-500 cursor-pointer"
           >

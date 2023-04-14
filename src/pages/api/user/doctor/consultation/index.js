@@ -1,7 +1,7 @@
 import dbConnect from "@/dbconnect";
 import Consultations from "@/models/consultModel";
 
-// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   dbConnect().catch((error) => res.json({ error: "Connection Failed" }));
@@ -10,7 +10,17 @@ export default async function handler(req, res) {
     const { doctorId, postId, fee, timeSlot, doctorName, doctorRefId } =
       req.body;
 
-    // const product = await stripe.products.create({ name: "Ajay Sharma" });
+    const product = await stripe.products.create({
+      name: doctorName,
+    });
+
+    const price = await stripe.prices.create({
+      product: product.id,
+      unit_amount: fee,
+      currency: "inr",
+    });
+
+    console.log(price);
 
     const consultation = await Consultations.create({
       doctorId,
@@ -20,7 +30,12 @@ export default async function handler(req, res) {
       fee,
       timeSlot,
       doctorName,
+      priceId: price.id,
     });
+
+    if (!consultation) {
+      return res.status(400).json({ msg: "Consultation Not Created" });
+    }
 
     return res.status(200).json({ consultation, msg: "Posted Successfully" });
   } else {
