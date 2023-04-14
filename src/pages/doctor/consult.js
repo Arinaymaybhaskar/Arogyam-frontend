@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { FcCancel, FcNext } from "react-icons/fc";
+import { FcCancel, FcNext , FcPlus} from "react-icons/fc";
 import { getSession } from "next-auth/react";
 import MainLayout from "@/layouts/MainLayout";
 import { useRouter } from "next/router";
-
+import { ContactUs } from "@/components/contactForm"; 
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
 
@@ -16,24 +16,24 @@ export async function getServerSideProps({ req }) {
       },
     };
   }
-
   //current user
   let res = await axios.post("http://localhost:3000/api/user", {
     email: session.user.email,
   });
   const doctor = res.data.data;
 
-  res = await axios.get(
+    res = await axios.get(
     `http://localhost:3000/api/user/doctor/consultation/byDoctor/${doctor._id}`
   );
   let consultations = res.data.data;
-
   return {
     props: { session, doctor, consultations },
   };
 }
 
-const selected = ({ doctor, consultations }) => {
+const selected = ({  doctor, consultations }) => {
+  console.log(consultations);
+  const [sendEmail, setSendEmail] = useState(false);
   const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath);
@@ -85,13 +85,24 @@ const selected = ({ doctor, consultations }) => {
                       <button
                         className="text-md w-full flex flex-row justify-evenly font-bold tracking-tight leading-tight"
                         onClick={
+                           
                           consultation.isAccepted ? handleSend : handleRevoke
                         }
                       >
                         {consultation.isAccepted ? (
                           <>
-                            <FcNext className="text-2xl mr-1" />
-                            <p>Send Mail</p>
+                            {/* <FcNext className="text-2xl mr-1" />
+                            <span onClick={() => setSendEmail(!sendEmail)}>Send Email</span> */}
+                            
+                            <span className="text-xl ">
+                              <button
+                                className="text-md  w-full rounded-xl  flex flex-row items-center font-bold tracking-tight leading-tight content-center"
+                                onClick={() => setSendEmail(!sendEmail) }
+                              >
+                                <FcPlus className="text-2xl mr-2" />
+                                Send Mail
+                              </button>
+                            </span>
                           </>
                         ) : (
                           <>
@@ -103,6 +114,8 @@ const selected = ({ doctor, consultations }) => {
                     </span>
                   </div>
                 </div>
+                {sendEmail && <ContactUs doctor={doctor}  consultation = {consultation} />}
+
               </div>
             </>
           );
