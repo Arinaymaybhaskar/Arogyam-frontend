@@ -91,18 +91,8 @@ const selected = ({  doctor, consultations }) => {
                       >
                         {consultation.isAccepted ? (
                           <>
-                            {/* <FcNext className="text-2xl mr-1" />
-                            <span onClick={() => setSendEmail(!sendEmail)}>Send Email</span> */}
-                            
-                            <span className="text-xl ">
-                              <button
-                                className="text-md  w-full rounded-xl  flex flex-row items-center font-bold tracking-tight leading-tight content-center"
-                                onClick={() => setSendEmail(!sendEmail) }
-                              >
-                                <FcPlus className="text-2xl mr-2" />
-                                Send Mail
-                              </button>
-                            </span>
+                            <FcNext className="text-2xl mr-1" />
+                            <span onClick={() => setSendEmail(!sendEmail)}>Send Email</span>
                           </>
                         ) : (
                           <>
@@ -114,7 +104,7 @@ const selected = ({  doctor, consultations }) => {
                     </span>
                   </div>
                 </div>
-                {sendEmail && <ContactUs doctor={doctor}  consultation = {consultation} />}
+                {sendEmail && <ContactUs doctor={doctor}  consultations = {consultation} />}
 
               </div>
             </>

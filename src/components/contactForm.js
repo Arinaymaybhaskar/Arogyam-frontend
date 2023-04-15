@@ -1,51 +1,17 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
+// const serviceID = process.env.SERVICE_KEY_ID;
+// const templateID = process.env.TEMPLATE_KEY_ID;
+// const userID = process.env.USER_KEY_ID;
 
-export const ContactUs = (doctor , consultation) => {
-    const toastOptions = {
-        position: "bottom-right",
-        autoClose: 8000,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-      };
-      
-      console.log(consultation);    
-    const handleValidation = () => {
-        const { subject, name, email , to_email, message } = formik.values;
-        if (subject === "" || name === "" || email === ""  || to_email === "" || message === "") {
-          toast.error("Fields cannot be empty.", toastOptions);
-          return false;
-        }
-        return true;
-      };
 
-    const onSubmit = async (values, err) => {
-        if (handleValidation()) {
-            const { subject, name, email , to_email, message  } = values;
-        }
-    };
-   
-    const formik = useFormik({
-        initialValues: {
-          subject: "Arogyam Consulation Service for Your Query",
-        //   name: doctor.doctor.fullname,
-        //   email: doctor.doctor.email,
-        name: "",
-        email: "",
-          to_email: "",
-          message: "",
-
-        },
-        onSubmit,
-      });
-
+export const ContactUs = (doctor ) => {
+    
+    
     function sendEmail(e){
         e.preventDefault();
 
-        emailjs.sendForm('service_js0osnq', 'template_b510yqe', e.target, '_VBxc4nEfA5rz_PNP')
+        emailjs.sendForm("service_js0osnq", "template_rxsxcuf", e.target, "_VBxc4nEfA5rz_PNP")
             .then((result) => {
                 console.log(result.text);
             }, (error) => {
@@ -54,9 +20,10 @@ export const ContactUs = (doctor , consultation) => {
 
             e.target.reset() 
     };
-   
-  return (
+    console.log(doctor);
     
+  return (
+          
     <> 
         
         <form className="w-full max-w-lg " onSubmit={sendEmail }>
@@ -73,8 +40,9 @@ export const ContactUs = (doctor , consultation) => {
                     id="grid-first-name"
                     type="text"
                     name="subject"
+                    defaultValue= "Arogyam Consultation Service for Your Query"
                     placeholder="Subject"
-                    // {...formik.getFieldProps("subject")}
+                    
                     />
                 </div>
             </div>
@@ -84,15 +52,34 @@ export const ContactUs = (doctor , consultation) => {
                     className="block uppercase tracking-wide text-xs font-semibold mb-2"
                     htmlFor="grid-first-name"
                     >
-                    Name
+                    Patient Name
                     </label>
                     <input
                     className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                     id="grid-first-name"
                     type="text"
-                    name="name"
-                    placeholder="name"
-                    // {...formik.getFieldProps("name")}
+                    name="to_name"
+                    defaultValue={doctor.consultations.postId.patientId.fullname}
+                    placeholder="Patient name"
+                   
+                    />
+                </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3">
+                    <label
+                    className="block uppercase tracking-wide text-xs font-semibold mb-2"
+                    htmlFor="grid-first-name"
+                    >
+                    Doctor Name
+                    </label>
+                    <input
+                    className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
+                    id="grid-first-name"
+                    type="text"
+                    name="doctor_name"
+                    placeholder="Doctor name"
+                    defaultValue={doctor.doctor.fullname}
                     />
                 </div>
             </div>
@@ -110,7 +97,7 @@ export const ContactUs = (doctor , consultation) => {
                     type="text"
                     name="email"
                     placeholder="Email"
-                    // {...formik.getFieldProps("email")}
+                    defaultValue={doctor.doctor.email}
                     />
                 </div>
             </div>
@@ -127,8 +114,9 @@ export const ContactUs = (doctor , consultation) => {
                     id="grid-first-name"
                     type="text"
                     name="to_email"
+                    defaultValue={doctor.consultations.postId.patientId.email}
                     placeholder="patient email"
-                    // {...formik.getFieldProps("to_email")}
+                   
                     />
                 </div>
             </div>
@@ -143,11 +131,18 @@ export const ContactUs = (doctor , consultation) => {
                     <textarea
                     className="appearance-none block w-full bg-neutral-200 dark:bg-darkMode-componentHead rounded py-3 px-4 leading-tight placeholder:text-neutral-500 focus:outline-none focus:bg-neutral-300 focus:text-black dark:focus:bg-neutral-800 dark:focus:text-white"
                     id="grid-first-name"
-                    
                     name="message"
+                    defaultValue= {`
+                    Thank you for your Trusting us with your Health! We're excited to have you on board and will be happy to help you to Get Fit and Healthy again.
                     
-                    // {...formik.getFieldProps("message")}
-                    />
+                    Please Find below the Google Meet link for Consultation Session for your Given time Slot of : 
+                    Start Time : ${doctor.consultations.timeSlot.startTime}
+                    End Time : ${doctor.consultations.timeSlot.endTime}
+                    
+                    Google Meet Link = "https://meet.google.com/_meet/chd-rpar-tsy?hs=187&authuser=0&ijlm=1681544653867&adhoc=1"
+
+                    I would be glad to extend the Consultaion period if any further issue is noticed in your Health on our behalf.`}
+                   />
                     
                 </div>
             </div>
